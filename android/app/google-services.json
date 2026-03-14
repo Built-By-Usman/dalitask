@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "150574670250",
+    "firebase_url": "https://darood-app-84a5f-default-rtdb.firebaseio.com",
+    "project_id": "darood-app-84a5f",
+    "storage_bucket": "darood-app-84a5f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150574670250:android:6070011fa5ee420dd5cbd3",
+        "android_client_info": {
+          "package_name": "com.abdullahiqbal.dalitask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150574670250-dlnt6ec80tri1joq1hcc97iqpbf6iprm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoaVXa8WeirGUC2hTgt1bnQTz0qKvcOdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150574670250-dlnt6ec80tri1joq1hcc97iqpbf6iprm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "150574670250-11cndsojblhk7foop8mbeegeopbi76lg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barakatEDurood"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150574670250:android:1f39d14fb6937d12d5cbd3",
+        "android_client_info": {
+          "package_name": "com.muhammadusman.barakat_e_durood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150574670250-dlnt6ec80tri1joq1hcc97iqpbf6iprm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoaVXa8WeirGUC2hTgt1bnQTz0qKvcOdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150574670250-dlnt6ec80tri1joq1hcc97iqpbf6iprm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "150574670250-11cndsojblhk7foop8mbeegeopbi76lg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.barakatEDurood"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

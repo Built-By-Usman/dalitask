@@ -20,14 +20,14 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.abdullahiqbal.dalitask"
     compileSdk = flutter.compileSdkVersion
-    //ndkVersion = flutter.ndkVersion
-    ndkVersion = "29.0.13846066"
+    ndkVersion = flutter.ndkVersion
+//    ndkVersion = "29.0.13846066"
 
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-//        isCoreLibraryDesugaringEnabled = true
+        isCoreLibraryDesugaringEnabled = true
 
     }
 
@@ -64,10 +64,10 @@ android {
         }
     }
 }
-//dependencies {
-//    // Use a stable desugar_jdk_libs version that exists in Maven
-//    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
-//}
+dependencies {
+    // Use a stable desugar_jdk_libs version that exists in Maven
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+}
 
 flutter {
     source = "../.."

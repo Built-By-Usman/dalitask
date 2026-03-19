@@ -49,9 +49,9 @@ dependencies:
   package_info_plus: ^8.0.0
   url_launcher:
   intl:
-#  firebase_messaging:
-#  flutter_local_notifications: ^19.5.0
-#  firebase_analytics:
+  firebase_messaging:
+  flutter_local_notifications: ^19.5.0
+  firebase_analytics:
 
 
 

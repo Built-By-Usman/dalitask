@@ -51,9 +51,11 @@ jobs:
       # 5️⃣ Auto increment version code
       - name: Auto increment version code
         run: |
-          BUILD_NUMBER=$(grep 'version:' pubspec.yaml | awk -F '+' '{print $2}')
-          NEW_BUILD_NUMBER=$((BUILD_NUMBER + 1))
-          sed -i "s/+${BUILD_NUMBER}/+${NEW_BUILD_NUMBER}/" pubspec.yaml
+          TIMESTAMP=$(date +%y%m%d%H%M)
+          RUN_NUMBER=${{ github.run_number }}
+          NEW_BUILD_NUMBER=$((TIMESTAMP + RUN_NUMBER))
+          sed -i "s/\+.*$/+${NEW_BUILD_NUMBER}/" pubspec.yaml
+          echo "Version code set to ${NEW_BUILD_NUMBER}"
 
       # 6️⃣ Decode keystore from GitHub secret
       - name: Decode Keystore
@@ -88,3 +90,9 @@ jobs:
         with:
           name: app-release-aab
           path: build/app/outputs/bundle/release/app-release.aab
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: v${{ github.run_number }}
+          files: android/build/app/outputs/bundle/release/app-release.aab

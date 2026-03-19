@@ -10,39 +10,52 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Flutter
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: flutter pub get
 
+      # 4️⃣ Run tests
       - name: Run tests
         run: flutter test
 
+      # 5️⃣ Auto increment version code
       - name: Auto increment version code
         run: |
           BUILD_NUMBER=$(grep 'version:' pubspec.yaml | awk -F '+' '{print $2}')
           NEW_BUILD_NUMBER=$((BUILD_NUMBER + 1))
           sed -i "s/+${BUILD_NUMBER}/+${NEW_BUILD_NUMBER}/" pubspec.yaml
 
-      # 🔐 Decode Keystore
+      # 6️⃣ Decode keystore from GitHub secret
       - name: Decode Keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
 
-      # 🔑 Create key.properties
+      # 7️⃣ Create key.properties
       - name: Create key.properties
         run: |
           echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
-          echo "storeFile=upload-keystore.jks" >> android/key.properties
+          echo "storeFile=android/app/upload-keystore.jks" >> android/key.properties
 
-      # 🏗 Build signed App Bundle
+      # 8️⃣ Accept Android licenses
+      - name: Accept Android licenses
+        run: yes | flutter doctor --android-licenses
+
+      # 9️⃣ Optional: Debug keystore presence
+      - name: List android folder
+        run: ls -la android/app
+
+      # 🔟 Build signed release App Bundle
       - name: Build App Bundle
         run: flutter build appbundle --release

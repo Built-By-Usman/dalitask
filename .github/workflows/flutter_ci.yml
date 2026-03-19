@@ -53,7 +53,7 @@ jobs:
         run: |
           COMMITS=$(git rev-list --count HEAD)
           RUN=${{ github.run_number }}
-          NEW_BUILD_NUMBER=$((COMMITS + RUN))
+          NEW_BUILD_NUMBER=$((30 + COMMITS + RUN))
           sed -i "s/\+.*$/+${NEW_BUILD_NUMBER}/" pubspec.yaml
           echo "Version code set to ${NEW_BUILD_NUMBER}"
 

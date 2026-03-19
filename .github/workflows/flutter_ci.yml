@@ -51,9 +51,9 @@ jobs:
       # 5️⃣ Auto increment version code
       - name: Auto increment version code
         run: |
-          TIMESTAMP=$(date +%y%m%d%H%M)
-          RUN_NUMBER=${{ github.run_number }}
-          NEW_BUILD_NUMBER=$((TIMESTAMP + RUN_NUMBER))
+          COMMITS=$(git rev-list --count HEAD)
+          RUN=${{ github.run_number }}
+          NEW_BUILD_NUMBER=$((COMMITS + RUN))
           sed -i "s/\+.*$/+${NEW_BUILD_NUMBER}/" pubspec.yaml
           echo "Version code set to ${NEW_BUILD_NUMBER}"
 

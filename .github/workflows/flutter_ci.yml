@@ -84,7 +84,7 @@ jobs:
 
       # 11️⃣ Upload the generated App Bundle as artifact
       - name: Upload App Bundle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: app-release-aab
           path: android/build/app/outputs/bundle/release/app-release.aab

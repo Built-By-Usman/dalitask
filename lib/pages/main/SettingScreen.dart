@@ -452,184 +452,184 @@ class SettingScreen extends StatelessWidget {
                                   SizedBox(height: 20),
 
                                   /// Bank info
-                                  // SettingProfileContainer(
-                                  //   text: 'بینک کی تفصیلات',
-                                  //   icon: Icons.credit_card,
-                                  //   dropDownContent: Column(
-                                  //     crossAxisAlignment:
-                                  //         CrossAxisAlignment.end,
-                                  //     children: [
-                                  //       SizedBox(height: 10),
-                                  //       Obx(
-                                  //         () => DropdownButtonHideUnderline(
-                                  //           child: Container(
-                                  //             padding: EdgeInsets.symmetric(
-                                  //               horizontal: 12,
-                                  //             ),
-                                  //             decoration: BoxDecoration(
-                                  //               color: Colors.grey[200],
-                                  //               borderRadius:
-                                  //                   BorderRadius.circular(8),
-                                  //               border: Border.all(
-                                  //                 color: Colors.grey.shade400,
-                                  //               ),
-                                  //             ),
-                                  //             child: DropdownButton<String>(
-                                  //               hint: Align(
-                                  //                 alignment:
-                                  //                     Alignment.centerRight,
-                                  //                 child: Text(
-                                  //                   controller
-                                  //                               .selectBankOption
-                                  //                               .value ==
-                                  //                           ''
-                                  //                       ? "بینک منتخب کریں"
-                                  //                       : controller
-                                  //                             .selectBankOption
-                                  //                             .value,
-                                  //                   textAlign: TextAlign.right,
-                                  //                   style: TextStyle(
-                                  //                     color: AppColors.black,
-                                  //                     fontSize: 16,
-                                  //                   ),
-                                  //                 ),
-                                  //               ),
-                                  //               value:
-                                  //                   controller.bankOptions
-                                  //                           .contains(
-                                  //                             controller
-                                  //                                 .selectBankOption
-                                  //                                 .value,
-                                  //                           ) &&
-                                  //                       controller
-                                  //                           .selectBankOption
-                                  //                           .value
-                                  //                           .isNotEmpty
-                                  //                   ? controller
-                                  //                         .selectBankOption
-                                  //                         .value
-                                  //                   : null,
-                                  //               isExpanded: true,
-                                  //               icon: Icon(
-                                  //                 Icons.keyboard_arrow_down,
-                                  //                 color: AppColors.black,
-                                  //               ),
-                                  //               items: controller.bankOptions
-                                  //                   .map(
-                                  //                     (
-                                  //                       bank,
-                                  //                     ) => DropdownMenuItem(
-                                  //                       value: bank,
-                                  //                       child: Align(
-                                  //                         alignment: Alignment
-                                  //                             .centerRight,
-                                  //                         child: Text(
-                                  //                           bank,
-                                  //                           textAlign:
-                                  //                               TextAlign.right,
-                                  //                           style: TextStyle(
-                                  //                             color: AppColors
-                                  //                                 .black,
-                                  //                             fontSize: 16,
-                                  //                           ),
-                                  //                         ),
-                                  //                       ),
-                                  //                     ),
-                                  //                   )
-                                  //                   .toList(),
-                                  //               onChanged: (value) {
-                                  //                 controller.changeBank(value!);
-                                  //               },
-                                  //               dropdownColor: Colors.grey[200],
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //       SizedBox(height: 10),
-                                  //       SubtitleText(
-                                  //         text: 'اکاؤنٹ ہولڈر کا نام',
-                                  //         color: AppColors.black,
-                                  //       ),
-                                  //       SizedBox(height: 5),
-                                  //       MyTextField(
-                                  //         controller:
-                                  //             controller.accountNameController,
-                                  //         hint: controller.accountName.value,
-                                  //         isPassword: false,
-                                  //         errorMessage:
-                                  //             controller
-                                  //                 .accountNameError
-                                  //                 .value
-                                  //                 .isEmpty
-                                  //             ? null
-                                  //             : controller
-                                  //                   .accountNameError
-                                  //                   .value,
-                                  //       ),
-                                  //       SizedBox(height: 10),
-                                  //       SubtitleText(
-                                  //         text: 'اکاؤنٹ / موبائل نمبر',
-                                  //         color: AppColors.black,
-                                  //       ),
-                                  //       SizedBox(height: 5),
-                                  //       MyTextField(
-                                  //         controller: controller
-                                  //             .accountNumberController,
-                                  //         hint: controller.accountNumber.value,
-                                  //         isPassword: false,
-                                  //         errorMessage:
-                                  //             controller
-                                  //                 .accountNumberError
-                                  //                 .value
-                                  //                 .isEmpty
-                                  //             ? null
-                                  //             : controller
-                                  //                   .accountNumberError
-                                  //                   .value,
-                                  //       ),
-                                  //       SizedBox(height: 10),
-                                  //       SubtitleText(
-                                  //         text: 'شناختی کارڈ نمبر',
-                                  //         color: AppColors.black,
-                                  //       ),
-                                  //       SizedBox(height: 5),
-                                  //       MyTextField(
-                                  //         controller: controller.cnicController,
-                                  //         hint: controller.cnic.value,
-                                  //         isPassword: false,
-                                  //         errorMessage:
-                                  //             controller.cnicError.value.isEmpty
-                                  //             ? null
-                                  //             : controller.cnicError.value,
-                                  //       ),
-                                  //       SizedBox(height: 10),
-                                  //       Center(
-                                  //         child: GestureDetector(
-                                  //           onTap: () {
-                                  //             controller.updateAccountDetails();
-                                  //           },
-                                  //           child: Container(
-                                  //             decoration: BoxDecoration(
-                                  //               color: AppColors.greenLightest,
-                                  //               borderRadius:
-                                  //                   BorderRadius.circular(8),
-                                  //             ),
-                                  //             child: Padding(
-                                  //               padding: const EdgeInsets.all(
-                                  //                 12.0,
-                                  //               ),
-                                  //               child: SubtitleText(
-                                  //                 text: 'تفصیلات محفوظ کریں',
-                                  //                 color: AppColors.blackLight,
-                                  //               ),
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  // SizedBox(height: 20),
+                                  SettingProfileContainer(
+                                    text: 'بینک کی تفصیلات',
+                                    icon: Icons.credit_card,
+                                    dropDownContent: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        SizedBox(height: 10),
+                                        Obx(
+                                          () => DropdownButtonHideUnderline(
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 12,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey[200],
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                  color: Colors.grey.shade400,
+                                                ),
+                                              ),
+                                              child: DropdownButton<String>(
+                                                hint: Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: Text(
+                                                    controller
+                                                                .selectBankOption
+                                                                .value ==
+                                                            ''
+                                                        ? "بینک منتخب کریں"
+                                                        : controller
+                                                              .selectBankOption
+                                                              .value,
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                      color: AppColors.black,
+                                                      fontSize: 16,
+                                                    ),
+                                                  ),
+                                                ),
+                                                value:
+                                                    controller.bankOptions
+                                                            .contains(
+                                                              controller
+                                                                  .selectBankOption
+                                                                  .value,
+                                                            ) &&
+                                                        controller
+                                                            .selectBankOption
+                                                            .value
+                                                            .isNotEmpty
+                                                    ? controller
+                                                          .selectBankOption
+                                                          .value
+                                                    : null,
+                                                isExpanded: true,
+                                                icon: Icon(
+                                                  Icons.keyboard_arrow_down,
+                                                  color: AppColors.black,
+                                                ),
+                                                items: controller.bankOptions
+                                                    .map(
+                                                      (
+                                                        bank,
+                                                      ) => DropdownMenuItem(
+                                                        value: bank,
+                                                        child: Align(
+                                                          alignment: Alignment
+                                                              .centerRight,
+                                                          child: Text(
+                                                            bank,
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                            style: TextStyle(
+                                                              color: AppColors
+                                                                  .black,
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                    .toList(),
+                                                onChanged: (value) {
+                                                  controller.changeBank(value!);
+                                                },
+                                                dropdownColor: Colors.grey[200],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
+                                        SubtitleText(
+                                          text: 'اکاؤنٹ ہولڈر کا نام',
+                                          color: AppColors.black,
+                                        ),
+                                        SizedBox(height: 5),
+                                        MyTextField(
+                                          controller:
+                                              controller.accountNameController,
+                                          hint: controller.accountName.value,
+                                          isPassword: false,
+                                          errorMessage:
+                                              controller
+                                                  .accountNameError
+                                                  .value
+                                                  .isEmpty
+                                              ? null
+                                              : controller
+                                                    .accountNameError
+                                                    .value,
+                                        ),
+                                        SizedBox(height: 10),
+                                        SubtitleText(
+                                          text: 'اکاؤنٹ / موبائل نمبر',
+                                          color: AppColors.black,
+                                        ),
+                                        SizedBox(height: 5),
+                                        MyTextField(
+                                          controller: controller
+                                              .accountNumberController,
+                                          hint: controller.accountNumber.value,
+                                          isPassword: false,
+                                          errorMessage:
+                                              controller
+                                                  .accountNumberError
+                                                  .value
+                                                  .isEmpty
+                                              ? null
+                                              : controller
+                                                    .accountNumberError
+                                                    .value,
+                                        ),
+                                        SizedBox(height: 10),
+                                        SubtitleText(
+                                          text: 'شناختی کارڈ نمبر',
+                                          color: AppColors.black,
+                                        ),
+                                        SizedBox(height: 5),
+                                        MyTextField(
+                                          controller: controller.cnicController,
+                                          hint: controller.cnic.value,
+                                          isPassword: false,
+                                          errorMessage:
+                                              controller.cnicError.value.isEmpty
+                                              ? null
+                                              : controller.cnicError.value,
+                                        ),
+                                        SizedBox(height: 10),
+                                        Center(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              controller.updateAccountDetails();
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.greenLightest,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                  12.0,
+                                                ),
+                                                child: SubtitleText(
+                                                  text: 'تفصیلات محفوظ کریں',
+                                                  color: AppColors.blackLight,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 20),
 
                                   /// Daily / Monthly goals
                                   SettingProfileContainer(

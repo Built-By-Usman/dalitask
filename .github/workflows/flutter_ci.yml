@@ -1,0 +1,48 @@
+name: Flutter CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.0'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Auto increment version code
+        run: |
+          BUILD_NUMBER=$(grep 'version:' pubspec.yaml | awk -F '+' '{print $2}')
+          NEW_BUILD_NUMBER=$((BUILD_NUMBER + 1))
+          sed -i "s/+${BUILD_NUMBER}/+${NEW_BUILD_NUMBER}/" pubspec.yaml
+
+      # 🔐 Decode Keystore
+      - name: Decode Keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+
+      # 🔑 Create key.properties
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=upload-keystore.jks" >> android/key.properties
+
+      # 🏗 Build signed App Bundle
+      - name: Build App Bundle
+        run: flutter build appbundle --release

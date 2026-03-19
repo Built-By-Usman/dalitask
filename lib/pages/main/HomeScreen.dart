@@ -143,7 +143,7 @@ class HomeScreen extends StatelessWidget {
                                           color: AppColors.white,
                                         ),
                                         TitleText(
-                                          text: controller.countDurood.value
+                                          text: controller.todayCount.value
                                               .toString(),
                                           color: AppColors.white,
                                         ),

@@ -95,7 +95,7 @@ class SplashScreenController extends GetxController {
                 child: ElevatedButton.icon(
                   onPressed: () async {
                     final uri = Uri.parse(
-                      'https://dalitask.com/assets/app-release.apk',
+                      'https://play.google.com/store/apps/details?id=com.abdullahiqbal.dalitask&hl=en',
                     );
                     try {
                       await launchUrl(uri,

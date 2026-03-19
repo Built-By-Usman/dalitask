@@ -44,9 +44,9 @@ jobs:
       # 7️⃣ Create key.properties for signing
       - name: Create key.properties
         run: |
-          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
-          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
-          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storePassword=${{ secrets.storePassword }}" > android/key.properties
+          echo "keyPassword=${{ secrets.keyPassword }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.keyAlias }}" >> android/key.properties
           echo "storeFile=app/upload-keystore.jks" >> android/key.properties
 
       # 8️⃣ Accept Android licenses

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   String name;
   String email;
@@ -43,15 +45,26 @@ class UserModel {
       monthlyGoal: map['monthlyGoal'] ?? 0,
       monthCount: map['monthCount'] ?? 0,
       streak: map['streak'] ?? 0,
-      isBlocked:map['isBlocked']??false,
-      referralCount: map['referralCount']??0,
+      isBlocked: map['isBlocked'] ?? false,
+      referralCount: map['referralCount'] ?? 0,
       todayCount: map['todayCount'] ?? 0,
       totalCount: map['totalCount'] ?? 0,
-      lastLoginDate: map['lastLoginDate'] ?? '',
-      lastMonthResetDate: map['lastMonthResetDate'] ?? '',
-      referredAt: map['referredAt']??'',
-      referredBy: map['referredBy']??'',
-      referralCode: map['referralCode']??'',
+
+      // ✅ FIX HERE
+      lastLoginDate: map['lastLoginDate'] is Timestamp
+          ? (map['lastLoginDate'] as Timestamp).toDate().toString()
+          : map['lastLoginDate'] ?? '',
+
+      lastMonthResetDate: map['lastMonthResetDate'] is Timestamp
+          ? (map['lastMonthResetDate'] as Timestamp).toDate().toString()
+          : map['lastMonthResetDate'] ?? '',
+
+      referredAt: map['referredAt'] is Timestamp
+          ? (map['referredAt'] as Timestamp).toDate().toString()
+          : map['referredAt'] ?? '',
+
+      referredBy: map['referredBy'] ?? '',
+      referralCode: map['referralCode'] ?? '',
       payout: Map<String, dynamic>.from(map['payout'] ?? {}),
     );
   }

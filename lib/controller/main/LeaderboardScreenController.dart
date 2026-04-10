@@ -50,6 +50,8 @@ class LeaderboardScreenController extends GetxController {
         for (var doc in querySnapshot.docs) {
           winners.add(UserModel.fromMap(doc.data() as Map<String, dynamic>));
         }
+
+        print(winners);
       }
     } catch (e) {
       print("Error fetching winners: $e");

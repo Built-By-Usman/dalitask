@@ -380,6 +380,11 @@ class SettingScreenController extends GetxController {
       return;
     }
 
+    if (requestedPoints < 100000) {
+      payoutError.value = "درخواست شدہ پوائنٹس کم از کم 1 لاکھ ہونے چاہئیں۔";
+      return;
+    }
+
     if (requestedPoints > totalCount.value) {
       payoutError.value = "درخواست شدہ پوائنٹس آپ کے کل پوائنٹس سے زیادہ نہیں ہو سکتے۔";
       return;

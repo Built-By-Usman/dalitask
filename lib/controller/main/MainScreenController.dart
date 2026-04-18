@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/AllPages.dart';
+import '../../models/FaqModel.dart';
 import '../../pages/main/FavouriteScreen.dart';
 import '../../pages/main/HomeScreen.dart';
 import '../../pages/main/LeaderBoardScreen.dart';
@@ -20,6 +23,7 @@ class MainScreenController extends GetxController {
   void onInit() {
     super.onInit();
     init();
+    loadFaqs();
   }
 
   final pages = [
@@ -29,6 +33,25 @@ class MainScreenController extends GetxController {
     LeaderBoardScreen(),
     HomeScreen(),
   ];
+
+  RxList<FaqModel> faqList = <FaqModel>[].obs;
+  RxBool showFaq = false.obs;
+
+  Future<void> loadFaqs() async {
+    try {
+      final String response =
+      await rootBundle.loadString('assets/json/faqs.json');
+
+      final data = json.decode(response) as List;
+
+      faqList.value =
+          data.map((e) => FaqModel.fromJson(e)).toList();
+
+      print("FAQs loaded: ${faqList.length}");
+    } catch (e) {
+      print("FAQ loading error: $e");
+    }
+  }
 
   Future<void> init() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

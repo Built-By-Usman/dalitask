@@ -95,7 +95,7 @@ class SettingScreen extends StatelessWidget {
                                   SizedBox(height: 5),
                                   MyTextField(
                                     controller: controller.paymentController,
-                                    hint: 'کم از کم 30000 پوائنٹس',
+                                    hint: 'کم از کم 100000 پوائنٹس',
                                     isPassword: false,
                                     errorMessage:
                                         controller.payoutError.value.isEmpty
@@ -197,55 +197,161 @@ class SettingScreen extends StatelessWidget {
                                   ),
 
                                   SizedBox(height: 20),
+
+                                  /// Gallery management
                                   SettingProfileContainer(
-                                    text: 'ای میل',
-                                    icon: Icons.email,
+                                    text: 'انعامات کی گیلری',
+                                    icon: Icons.emoji_events,
+
                                     dropDownContent: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        SubtitleText(
-                                          text: 'موجودہ ای میل',
-                                          color: AppColors.black,
-                                        ),
-                                        SizedBox(height: 5),
-                                        MyTextField(
-                                          controller:
-                                              controller.emailController,
-                                          hint: controller.email.value,
-                                          isPassword: false,
-                                          errorMessage:
-                                              controller
-                                                  .emailError
-                                                  .value
-                                                  .isEmpty
-                                              ? null
-                                              : controller.emailError.value,
-                                        ),
-                                        SizedBox(height: 10),
-                                        Center(
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              controller.updateEmail();
+                                        Obx(() {
+                                          if (controller.winners.isEmpty) {
+                                            return Padding(
+                                              padding: const EdgeInsets.all(12),
+                                              child: Text(
+                                                "کوئی انعامی ریکارڈ موجود نہیں",
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(
+                                                  color: AppColors.grey,
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            );
+                                          }
+
+                                          return ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            itemCount:
+                                                controller.winners.length,
+                                            itemBuilder: (context, index) {
+                                              final winner =
+                                                  controller.winners[index];
+
+                                              return Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 4,
+                                                    ),
+
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(18),
+
+                                                  /// Soft glass background
+                                                  color: AppColors.greyLight,
+
+                                                  border: Border.all(
+                                                    color:
+                                                        AppColors.greenLightest,
+                                                  ),
+
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.05),
+                                                      blurRadius: 10,
+                                                      spreadRadius: 2,
+                                                    ),
+                                                  ],
+                                                ),
+
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    14,
+                                                  ),
+
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      /// ================= NAME =================
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          /// DATE
+                                                          Text(
+                                                            "${winner.dateAwarded.day}-${winner.dateAwarded.month}-${winner.dateAwarded.year}",
+                                                            style: TextStyle(
+                                                              fontSize: 11,
+                                                              color: AppColors
+                                                                  .grey,
+                                                            ),
+                                                          ),
+
+                                                          /// USER NAME
+                                                          Expanded(
+                                                            child: Text(
+                                                              winner.userName,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .right,
+                                                              style: const TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: AppColors
+                                                                    .blackLight,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+
+                                                      const SizedBox(height: 8),
+
+                                                      /// ================= REWARD BADGE =================
+                                                      Container(
+                                                        padding:
+                                                            const EdgeInsets.symmetric(
+                                                              horizontal: 10,
+                                                              vertical: 6,
+                                                            ),
+                                                        decoration: BoxDecoration(
+                                                          gradient:
+                                                              LinearGradient(
+                                                                colors: [
+                                                                  AppColors
+                                                                      .green,
+                                                                  AppColors
+                                                                      .greenLight,
+                                                                ],
+                                                              ),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                30,
+                                                              ),
+                                                        ),
+                                                        child: Text(
+                                                          winner.rewardType,
+                                                          textAlign:
+                                                              TextAlign.right,
+                                                          style:
+                                                              const TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
                                             },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: AppColors.greenLightest,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                  12.0,
-                                                ),
-                                                child: SubtitleText(
-                                                  text: 'ای میل اپڈیٹ کریں',
-                                                  color: AppColors.blackLight,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+                                          );
+                                        }),
                                       ],
                                     ),
                                   ),
@@ -737,7 +843,7 @@ class SettingScreen extends StatelessWidget {
                                                   text:
                                                       '• یہاں آپ کو ماہانہ اور مجموعی انعامات کے لیے اہلیت، فاتح کے انتخاب کا طریقہ کار، اور پوائنٹس کے دعوے کی شرائط و ضوابط ملیں گے.\n'
                                                       '• ہر مہینے کی 29 تاریخ کو اعلان کیا جائے گا.\n'
-                                                      '• ادائیگی کے دعوے کے لیے کم از کم 30,000 پوائنٹس درکار ہیں.\n'
+                                                      '• ادائیگی کے دعوے کے لیے کم از کم100,000 پوائنٹس درکار ہیں.\n'
                                                       '• ادائیگی کی تفصیلات (بینک/ایزی پیسہ/جاز کیش) کا مکمل اندراج ضروری ہے۔ نامکمل تفصیلات کی صورت میں آپ کی زیر التواء درخواستیں خود بخود منسوخ کر دی جائیں گی.\n'
                                                       '• پوائنٹس صرف ایک بار ہی کلیم کیے جا سکتے ہیں.',
                                                   color: AppColors.blackLight,
@@ -813,7 +919,8 @@ class SettingScreen extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.all(16),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             SizedBox(height: 10),
 
@@ -858,10 +965,13 @@ class SettingScreen extends StatelessWidget {
                                             /// رابطہ کارڈ
                                             Container(
                                               width: double.infinity,
-                                              padding: EdgeInsets.symmetric(vertical: 15),
+                                              padding: EdgeInsets.symmetric(
+                                                vertical: 15,
+                                              ),
                                               decoration: BoxDecoration(
                                                 color: AppColors.greyLight,
-                                                borderRadius: BorderRadius.circular(15),
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
                                               ),
                                               child: Column(
                                                 children: [
@@ -870,7 +980,8 @@ class SettingScreen extends StatelessWidget {
                                                     style: TextStyle(
                                                       color: AppColors.black,
                                                       fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
                                                   SizedBox(height: 4),
@@ -879,7 +990,8 @@ class SettingScreen extends StatelessWidget {
                                                     style: TextStyle(
                                                       color: AppColors.grey,
                                                       fontSize: 15,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                     ),
                                                   ),
                                                 ],
@@ -893,16 +1005,27 @@ class SettingScreen extends StatelessWidget {
                                               width: double.infinity,
                                               height: 50,
                                               child: ElevatedButton.icon(
-                                                onPressed: controller.openWhatsApp,
-                                                icon: Icon(Icons.chat, color: Colors.white),
+                                                onPressed:
+                                                    controller.openWhatsApp,
+                                                icon: Icon(
+                                                  Icons.chat,
+                                                  color: Colors.white,
+                                                ),
                                                 label: Text(
                                                   'واٹس ایپ پر پیغام بھیجیں',
-                                                  style: TextStyle(fontSize: 15,color: AppColors.white),
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: AppColors.white,
+                                                  ),
                                                 ),
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: AppColors.green,
+                                                  backgroundColor:
+                                                      AppColors.green,
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(15),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          15,
+                                                        ),
                                                   ),
                                                 ),
                                               ),
@@ -916,6 +1039,8 @@ class SettingScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+
+                          SizedBox(height: 10),
 
                           SizedBox(height: 10),
 
@@ -966,13 +1091,20 @@ class SettingScreen extends StatelessWidget {
                                                       .spaceBetween,
                                               children: [
                                                 // Status with color
-
                                                 Row(
                                                   children: [
-
-                                                    IconButton(onPressed: (){
-                                                      controller.deletePayoutRequest(request['id']);
-                                                    }, icon: Icon(Icons.delete,color: AppColors.red,)),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        controller
+                                                            .deletePayoutRequest(
+                                                              request['id'],
+                                                            );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.delete,
+                                                        color: AppColors.red,
+                                                      ),
+                                                    ),
 
                                                     Builder(
                                                       builder: (context) {
@@ -980,30 +1112,33 @@ class SettingScreen extends StatelessWidget {
                                                         Color statusColor;
 
                                                         switch ((request['status'] ??
-                                                            '')
+                                                                '')
                                                             .toString()
                                                             .toLowerCase()) {
                                                           case 'pending':
                                                             statusText =
-                                                            'زرا التواء';
+                                                                'زرا التواء';
                                                             statusColor =
                                                                 Colors.orange;
                                                             break;
                                                           case 'accepted':
-                                                            statusText = 'قبول شدہ';
+                                                            statusText =
+                                                                'قبول شدہ';
                                                             statusColor =
                                                                 Colors.green;
                                                             break;
                                                           case 'rejected':
                                                             statusText =
-                                                            'نامنظور شدہ';
+                                                                'نامنظور شدہ';
                                                             statusColor =
                                                                 Colors.red;
                                                             break;
                                                           default:
-                                                            statusText = 'نامعلوم';
-                                                            statusColor = AppColors
-                                                                .blackLight;
+                                                            statusText =
+                                                                'نامعلوم';
+                                                            statusColor =
+                                                                AppColors
+                                                                    .blackLight;
                                                         }
 
                                                         return TitleText(
@@ -1012,8 +1147,6 @@ class SettingScreen extends StatelessWidget {
                                                         );
                                                       },
                                                     ),
-
-
 
                                                     // Points
                                                   ],

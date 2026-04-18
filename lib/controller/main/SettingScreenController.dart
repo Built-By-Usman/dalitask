@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../components/AllPages.dart';
 import '../../components/GetxComponents.dart';
 import '../../models/UserModel.dart';
+import '../../models/WinnerModel.dart';
 
 class SettingScreenController extends GetxController {
   RxString selectBankOption = ''.obs;
@@ -50,6 +51,8 @@ class SettingScreenController extends GetxController {
   RxInt dailyGoal = 0.obs;
   RxInt monthlyGoal = 0.obs;
   var email=''.obs;
+  RxList<WinnerModel> winners = <WinnerModel>[].obs;
+
 
   final List<String> bankOptions = ["جاز کیش", "ایزی پیسہ", "بینک"];
 
@@ -57,6 +60,7 @@ class SettingScreenController extends GetxController {
   void onInit() {
     super.onInit();
     loadData();
+    fetchWinners();
     loadPayoutRequests();
   }
 
@@ -171,93 +175,6 @@ class SettingScreenController extends GetxController {
   }
 
 
-  Future<void> updateEmail() async {
-    final newEmail = emailController.text.trim().toLowerCase();
-
-    if (newEmail.isEmpty) {
-      emailError.value = "ای میل خالی نہیں ہو سکتی";
-      return;
-    }
-
-    if (newEmail == email.value) return;
-
-    try {
-
-
-      final user = FirebaseAuth.instance.currentUser;
-
-      if (user == null) {
-        emailError.value = "یوزر لاگ ان نہیں ہے";
-        return;
-      }
-
-      /// 🔥 STEP 1: Check in Firestore
-      final query = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: newEmail)
-          .get();
-
-      if (query.docs.isNotEmpty) {
-        // Agar email kisi aur user ki hai
-        final existingUserDoc = query.docs.first;
-
-        if (existingUserDoc.id != user.uid) {
-          emailError.value = "یہ ای میل پہلے سے رجسٹرڈ ہے";
-          return;
-        }
-      }
-      isLoading.value = true;
-
-      /// 🔥 STEP 2: Call Firebase Auth
-      await user.verifyBeforeUpdateEmail(newEmail);
-
-      /// 🔥 Success
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-         preferences.clear();
-
-      Get.offAllNamed(AppRoutes.login);
-
-
-      GetxComponents.showSnackBar(
-        Get.context!,
-        "ویریفیکیشن بھیجا گیا",
-        "نئی ای میل پر ویریفیکیشن لنک بھیج دیا گیا ہے۔",
-      );
-
-    } on FirebaseAuthException catch (e) {
-
-      if (e.code == 'email-already-in-use') {
-        emailError.value = "یہ ای میل پہلے سے رجسٹرڈ ہے";
-        return;
-      }
-
-      if (e.code == 'requires-recent-login') {
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        preferences.clear();
-        Get.offAllNamed(AppRoutes.login);
-        GetxComponents.showSnackBar(
-          Get.context!,
-          "دوبارہ لاگ ان کریں",
-          "سیکیورٹی کی وجہ سے دوبارہ لاگ ان ضروری ہے",
-        );
-        return;
-      }
-
-      if (e.code == 'invalid-email') {
-        emailError.value = "ای میل درست نہیں ہے";
-        return;
-      }
-
-      emailError.value = e.message ?? "ای میل اپڈیٹ کرنے میں ناکامی";
-
-    } catch (_) {
-      emailError.value = "کچھ غلطی ہو گئی";
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-
   Future<void> openWhatsApp() async {
     final Uri url = Uri.parse(
       "https://wa.me/923182258363?text=السلام علیکم، مجھے مدد درکار ہے۔",
@@ -365,6 +282,26 @@ class SettingScreenController extends GetxController {
   }
 
   RxString payoutError = ''.obs;
+
+  Future<void> fetchWinners() async {
+    try {
+      isLoading.value = true;
+
+      final snapshot = await db
+          .collection('winners') // 👈 apni collection ka exact name likho
+          .orderBy('dateAwarded', descending: true)
+          .get();
+
+      winners.value = snapshot.docs
+          .map((doc) =>
+          WinnerModel.fromFirestore(doc.id, doc.data()))
+          .toList();
+    } catch (e) {
+      print("Error fetching winners: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
   Future<void> sendPayoutRequest() async {
     payoutError.value = '';

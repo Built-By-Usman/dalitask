@@ -20,8 +20,8 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.abdullahiqbal.dalitask"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
-//    ndkVersion = "29.0.13846066"
+//    ndkVersion = flutter.ndkVersion
+    ndkVersion = "29.0.13846066"
 
 
     compileOptions {
